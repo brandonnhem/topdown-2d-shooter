@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy50hgegpdckt"]
+
+[ext_resource type="Texture2D" uid="uid://dber5vskbxb40" path="res://Assets/kenney_top-down-shooter/PNG/weapon_gun.png" id="1_qcrro"]
+[ext_resource type="Script" path="res://Scenes/Weapon_1.gd" id="1_uosvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yngi"]
+size = Vector2(19, 10)
+
+[node name="Gun" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_uosvg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0yngi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qcrro")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

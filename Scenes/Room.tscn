@@ -36,3 +36,4 @@ position = Vector2(823, 181)
 [node name="Mob" parent="." instance=ExtResource("4_r22mu")]
 position = Vector2(1088, 312)
 rotation = -3.14159
+attack_damage = 0.5

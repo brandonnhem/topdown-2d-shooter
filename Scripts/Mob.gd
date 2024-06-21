@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 const SPEED = 40
-@export var health : float
-@export var attack_damage : float
+@export var health : float = 30.0
+@export var attack_damage : float = 2.0
 @onready var player := $"../Hitman"
 @onready var timer = $AttackCooldownTimer
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
 	look_at(player.global_position)
 	velocity = direction * SPEED
@@ -20,8 +20,8 @@ func attack():
 			var collision := get_slide_collision(index)
 			var body := collision.get_collider()
 			if body.has_method("take_damage"):
-				player.take_damage(attack_damage)
 				timer.start()
+				player.take_damage(attack_damage)
 
 func take_damage(damage: float) -> void:
 	health -= damage

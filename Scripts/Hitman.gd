@@ -44,10 +44,10 @@ func get_input() -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
 	look_at(get_global_mouse_position())
 	velocity = direction * speed
-#	move_and_slide()
 	
 	if Input.is_action_just_pressed("shoot"):
-		_shoot()
+		if "gun" in weapons:
+			_shoot()
 	if Input.is_action_just_pressed("reload"):
 		_reload()
 	#elif event is InputEventKey:
@@ -70,5 +70,6 @@ func update_health() -> void:
 	print("Player's health: ", currentHealth)
 	
 func take_damage(damage: float) -> void:
+	$PlayerCamera.apply_shake(0.1)
 	currentHealth -= damage
 	update_health()

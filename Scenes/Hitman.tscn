@@ -32,3 +32,6 @@ script = null
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 script = ExtResource("4_3gx31")
+
+[node name="CameraShakeTimer" type="Timer" parent="PlayerCamera"]
+one_shot = true

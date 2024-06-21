@@ -11,12 +11,17 @@ config_version=5
 [application]
 
 config/name="Top Down Shooter 2d"
+run/main_scene="res://Scenes/Room.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
 mouse_cursor/custom_image="res://Assets/Kenney_Crosshairs/PNG/Outline/crosshair001.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
 
 [input]
 

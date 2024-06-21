@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx4fmee6qmk7c"]
+
+[ext_resource type="Script" path="res://Scripts/Mob.gd" id="1_6vrli"]
+[ext_resource type="Texture2D" uid="uid://hhhtbqor60pk" path="res://Assets/kenney_top-down-shooter/PNG/Zombie 1/zoimbie1_hold.png" id="1_nncme"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gscd0"]
+radius = 19.0
+height = 46.0
+
+[node name="Mob" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_6vrli")
+health = 30.0
+attack_damage = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nncme")
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 1.8
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gscd0")
+
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_timer_timeout"]

@@ -1,6 +1,7 @@
 extends CharacterBody2D
-@export var Bullet : PackedScene
 
+@export var maxHealth = 30
+@onready var currentHealth : int = maxHealth
 var speed = 400 # speed in pixels/sec
 
 var weapons = [] # init empty weapons
@@ -20,9 +21,7 @@ var cursor_variations = {
 }
  
 func _physics_process(delta: float) -> void:
-	var direction = Input.get_vector("left", "right", "up", "down")
-	look_at(get_global_mouse_position())
-	velocity = direction * speed
+	get_input()
 	move_and_slide()
 
 func add_weapon(weapon_type: String) -> void:
@@ -41,10 +40,35 @@ func _change_cursor_type(cursor_type: String) -> void:
 	var cursor = load(cursor_variations[cursor_type])
 	Input.set_custom_mouse_cursor(cursor)
 
-func _input(event) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_shoot()
+func get_input() -> void:
+	var direction = Input.get_vector("left", "right", "up", "down")
+	look_at(get_global_mouse_position())
+	velocity = direction * speed
+#	move_and_slide()
+	
+	if Input.is_action_just_pressed("shoot"):
+		_shoot()
+	if Input.is_action_just_pressed("reload"):
+		_reload()
+	#elif event is InputEventKey:
+		#if event.button_index == "reload" and event.pressed:
+			#_reload()
 	
 func _shoot() -> void:
-	print("PEW")
+	var bullet = load("res://Scenes/Bullet.tscn")
+	var new_bullet = bullet.instantiate()
+	get_tree().root.add_child(new_bullet)
+	new_bullet.transform = $Muzzle.global_transform
+	
+# TODO: Reload the amount of bullets stored within the gun.
+#		Might need to create a class object to store the different variables of the gun
+func _reload() -> void:
+	print("I'm reloading here!")
+	
+func update_health() -> void:
+	$HealthBar.value = currentHealth
+	print("Player's health: ", currentHealth)
+	
+func take_damage(damage: float) -> void:
+	currentHealth -= damage
+	update_health()
